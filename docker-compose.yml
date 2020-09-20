@@ -6,9 +6,7 @@ services:
       context: ./docker/web
     volumes:
       - ./src:/var/www
-#      - ./local/php.ini:/usr/local/etc/php/conf.d/docker-vars.ini
-      - ./docker/web/nginx.conf:/etc/nginx/sites-available/default.conf
-#      - ./local/php_www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./docker/web/nginx.conf:/etc/nginx/nginx.conf
     environment: 
       WEBROOT: "/var/www/backend/web"
 #      ENABLE_XDEBUG: 1
