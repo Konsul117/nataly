@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  php:
+    build: 
+      context: ./docker/web
+    volumes:
+      - ./src:/var/www
+#      - ./local/php.ini:/usr/local/etc/php/conf.d/docker-vars.ini
+      - ./docker/web/nginx.conf:/etc/nginx/sites-available/default.conf
+#      - ./local/php_www.conf:/usr/local/etc/php-fpm.d/www.conf
+    environment: 
+      WEBROOT: "/var/www/backend/web"
+#      ENABLE_XDEBUG: 1
+#      XDEBUG_CONFIG: 192.168.1.70
+#      PHP_IDE_CONFIG: "serverName=stickers"
+    ports:
+      - 80:80
