@@ -1,0 +1,48 @@
+.upload-modal #uploadDropzone {
+	width:      200px;
+	height:     200px;
+	border:     2px dashed #AAA;
+	color:      #AAA;
+	background: #F7F7F7;
+	text-align: center;
+	font-size:  1.2em;
+	margin:     auto;
+	padding:    0;
+}
+
+.upload-modal #uploadDropzone .dz-message {
+	display:        table-cell;
+	height:         inherit;
+	vertical-align: middle;
+	padding:        0.5em;
+}
+
+#uploadedPreviewPane {
+	text-align: center;
+	display:    inline-block;
+	padding:    5px;
+	margin:     5px 0;
+	position:   fixed;
+	left:       0;
+	top:        0;
+	width:      120px;
+	max-width:  120px;
+	height:     100%;
+	overflow-y: auto;
+}
+
+#uploadedPreviewPane .image-item {
+	width:  90px;
+	height: 90px;
+	margin: 5px auto 30px;
+
+	cursor: pointer;
+}
+
+.upload-modal .uploading-images {
+	margin: 5px 0;
+}
+
+.upload-modal .uploading-images .lbl-progress .status {
+	float: right;
+}
