@@ -6,7 +6,6 @@ use common\modules\blog\models\BlogCategory;
 use common\modules\blog\models\BlogPost;
 use common\modules\blog\models\BlogTag;
 use frontend\modules\blogFront\BlogFront;
-use frontend\modules\commentFront\CommentFront;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
@@ -64,17 +63,9 @@ class PostsController extends Controller {
 			throw new NotFoundHttpException('Запись не найдена');
 		}
 
-		/** @var CommentFront $commentModule */
-		$commentModule = Yii::$app->modules['commentFront'];
-
-		if ($commentModule === null) {
-			throw new InvalidConfigException('Отсутствует модуль комментариев');
-		}
-
-		return $this->render('view', [
-			'post'          => $post,
-//			'commentWidget' => $commentModule->getCommentWidget(Entity::ENTITY_BLOG_POST_ID, $post->id),
-		]);
+        return $this->render('view', [
+            'post' => $post,
+        ]);
 	}
 
 	/**
