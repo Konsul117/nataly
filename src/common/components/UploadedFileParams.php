@@ -52,34 +52,46 @@ class UploadedFileParams {
 	 * @return static
 	 * @throws InvalidParamException
 	 */
-	public static function getInstanceByArray(array $array) {
+	public static function getInstanceByArray(array $array, ?string $field = null) {
 		$obj = new static();
 
-		if (!isset($array['name'])) {
+		if ($field !== null) {
+            $params = [
+                'name'     => $array['name'][$field],
+                'type'     => $array['type'][$field],
+                'tmp_name' => $array['tmp_name'][$field],
+                'error'    => $array['error'][$field],
+                'size'     => $array['size'][$field],
+            ];
+        } else {
+		    $params = $array;
+        }
+
+		if (!isset($params['name'])) {
 			throw new InvalidParamException('Отсутствует параметр "name"');
 		}
 
-		if (!isset($array['type'])) {
+		if (!isset($params['type'])) {
 			throw new InvalidParamException('Отсутствует параметр "type"');
 		}
 
-		if (!isset($array['tmp_name'])) {
+		if (!isset($params['tmp_name'])) {
 			throw new InvalidParamException('Отсутствует tmp_name"');
 		}
 
-		if (!isset($array['error'])) {
+		if (!isset($params['error'])) {
 			throw new InvalidParamException('Отсутствует параметр "error"');
 		}
 
-		if (!isset($array['size'])) {
+		if (!isset($params['size'])) {
 			throw new InvalidParamException('Отсутствует параметр "size"');
 		}
 
-		$obj->name    = $array['name'];
-		$obj->type    = $array['type'];
-		$obj->tmpName = $array['tmp_name'];
-		$obj->error   = $array['error'];
-		$obj->size    = $array['size'];
+		$obj->name    = $params['name'];
+		$obj->type    = $params['type'];
+		$obj->tmpName = $params['tmp_name'];
+		$obj->error   = $params['error'];
+		$obj->size    = $params['size'];
 
 		return $obj;
 	}

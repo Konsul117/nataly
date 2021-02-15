@@ -36,22 +36,23 @@ class PostsWidget extends Widget {
 	 */
 	public $showTotalCount = false;
 
+	public $showPagination = false;
+
 	/**
 	 * @inheritdoc
 	 */
 	public function run() {
 		if (!$this->query instanceof Query) {
-			throw new InvalidConfigException('Отсуствует query');
+			throw new InvalidConfigException('Отсутствует query');
 		}
-
-//		BootstrapAsset::register($this->getView());
 
 		$countQuery = clone $this->query;
 
 		$pages = new Pagination([
-			'totalCount' => $countQuery->count(),
-			'pageSize'   => $this->postsForPage,
-			'route'      => '/blogFront/posts/index',
+            'totalCount'      => $countQuery->count(),
+            'defaultPageSize' => $this->postsForPage,
+            'pageSize'        => $this->postsForPage,
+            'route'           => 'blogFront/posts/category',
 		]);
 
 		$posts = $this->query->offset($pages->offset)

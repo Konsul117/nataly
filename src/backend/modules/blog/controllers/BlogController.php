@@ -254,5 +254,4 @@ class BlogController extends BackendController {
 
 		return $this->redirect(['/blog/blog/category/', 'category_url' => $model->category->title_url]);
 	}
-
 }

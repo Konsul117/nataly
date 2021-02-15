@@ -32,6 +32,11 @@ return [
 							'height'    => 1000,
 							'watermark' => true,
 						],
+                        ImageProvider::FORMAT_BOOK   => [
+                            'width'     => 211,
+                            'height'    => 300,
+                            'watermark' => false,
+                        ],
 					],
 				],
 			],

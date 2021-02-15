@@ -82,13 +82,17 @@ class BreadcrumbCollection implements Iterator, Countable {
 
 	/**
 	 * Получить последний элемент
-	 * @return BreadcrumbItem|false
+	 * @return BreadcrumbItem|null
 	 */
 	public function getLast() {
 		if (!empty($this->breadcrumbs)) {
 			return $this->breadcrumbs[count($this->breadcrumbs) - 1];
 		}
 
-		return false;
+		return null;
 	}
+
+	public function getAll() {
+	    return $this->breadcrumbs;
+    }
 }

@@ -15,7 +15,6 @@ use yii\widgets\LinkPager;
 $formatter = new Formatter();
 ?>
 
-
 <?php if (!empty($posts)): ?>
 	<div class="blog-posts">
 		<?php if ($widget->showTotalCount): ?>
@@ -23,23 +22,17 @@ $formatter = new Formatter();
 		<?php endif ?>
 		<?php foreach ($posts as $post): ?>
 			<div class="post-item">
+				<div class="post-stamp">
+                    <?= Html::a($formatter->asLocalDateTime($post->insert_stamp, 'd.m.Y H:i'), ['/blogFront/posts/view', 'title_url' => $post->title_url]) ?>
+				</div>
+
 				<h2>
 					<?= Html::a($post->title, ['/blogFront/posts/view', 'title_url' => $post->title_url]) ?>
 				</h2>
 
-				<div class="post-stamp">
-					<?= $formatter->asLocalDateTime($post->insert_stamp, 'd.m.Y H:i') ?>
-				</div>
-
 				<div class="item-content">
 					<?= PostOutHelper::wrapContentImages($post->short_content, ImageProvider::FORMAT_POST_MAIN, $post->title) ?>
 				</div>
-
-				<p>
-					<?= Html::a('Подробнее', ['/blogFront/posts/view', 'title_url' => $post->title_url], [
-						'class' => 'btn btn-default'
-					]) ?>
-				</p>
 			</div>
 		<?php endforeach ?>
 
@@ -49,11 +42,15 @@ $formatter = new Formatter();
 			<div class="post-count">Всего записей: <?= $pages->totalCount ?></div>
 		<?php endif ?>
 
-		<div class="pagination-wrap">
-			<?= LinkPager::widget([
-					'pagination' => $pages,
-			]) ?>
-		</div>
+		<?php if ($widget->showPagination): ?>
+			<div class="pagination-wrap">
+				<?= LinkPager::widget([
+						'pagination' => $pages,
+						'nextPageLabel' => 'Вперёд',
+						'prevPageLabel' => 'Назад',
+				]) ?>
+			</div>
+		<?php endif ?>
 	</div>
 <?php elseif ($widget->showEmptyLabel): ?>
 	<div class="alert alert-info">

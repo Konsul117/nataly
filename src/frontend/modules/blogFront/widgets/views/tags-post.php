@@ -9,14 +9,9 @@ use yii\helpers\Html;
 ?>
 
 <?php if (!empty($widget->post->tagsModels)): ?>
-
 	<div class="tags-post">
-		Теги:
-		<ul class="list-unstyled tags-list">
-			<?php foreach ($widget->post->tagsModels as $tag): ?>
-				<li><?= Html::a($tag->name, ['/blogFront/posts/tag', 'tag' => $tag->name_url]) ?></li>
-			<?php endforeach ?>
-		</ul>
+		Теги: <?= implode(', ', array_map(function (\common\modules\blog\models\BlogTag $tag) {
+			return Html::a($tag->name, ['/blogFront/posts/tag', 'tag' => $tag->name_url]);
+		}, $widget->post->tagsModels)) ?>
 	</div>
-
 <?php endif ?>

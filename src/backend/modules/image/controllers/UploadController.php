@@ -88,13 +88,10 @@ class UploadController extends Controller {
 		}
 
 		try {
-
 			$imageUploader->uploadImage((string)$image->id, $param);
-
 			$transaction->commit();
 
 			$this->ajaxResponse->success = true;
-
 			$this->ajaxResponse->data = [
 				'urls'     => [
 					'medium' => $image->getImageUrl(ImageProvider::FORMAT_MEDIUM),

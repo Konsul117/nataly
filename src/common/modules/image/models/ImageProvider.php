@@ -22,6 +22,9 @@ interface ImageProvider {
 	/** Формат полный */
 	const FORMAT_FULL = 'full';
 
+	/** Формат книги */
+	const FORMAT_BOOK = 'book';
+
 	/**
 	 * Получить изображение нужного формата
 	 * @param string $format

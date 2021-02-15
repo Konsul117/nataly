@@ -69,5 +69,4 @@ class BlogPostSearch extends BlogPost {
 
 		return $dataProvider;
 	}
-
 }

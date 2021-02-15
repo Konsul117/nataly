@@ -9,6 +9,7 @@ Yii::setAlias('root', dirname(dirname(__DIR__)));
 //путь для загрузки оригиниалов изображений
 Yii::setAlias('upload_watermark_path', Yii::getAlias('@root/upload/watermark'));
 Yii::setAlias('upload_images_path', Yii::getAlias('@root/upload/images'));
+Yii::setAlias('upload_books_path', Yii::getAlias('@root/upload/books'));
 //путь для сохранений тамбов (должен быть доступен извне)
 Yii::setAlias('resized_images_path', Yii::getAlias('@frontend/web/upload/images/resized'));
 //URL для загрузки тамбов

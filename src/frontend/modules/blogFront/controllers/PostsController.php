@@ -32,9 +32,17 @@ class PostsController extends Controller {
 		if ($this->blogFrontModule === null) {
 			throw new InvalidConfigException('Отсутствует модуль BlogFront');
 		}
+
+		$this->getView()->on($this->getView()::EVENT_BEFORE_RENDER, function () {
+		    if (isset($this->actionParams['category_url'])) {
+                $this->view->params = array_merge($this->view->params, [
+                    'blogCategoryUrl' => $this->actionParams['category_url'],
+                ]);
+            }
+        });
 	}
 
-	/**
+    /**
 	 * Главная страница
 	 *
 	 * @return string
@@ -62,6 +70,8 @@ class PostsController extends Controller {
 		if ($post === null) {
 			throw new NotFoundHttpException('Запись не найдена');
 		}
+
+        $this->actionParams['category_url'] = $post->category->title_url;
 
         return $this->render('view', [
             'post' => $post,
@@ -98,14 +108,14 @@ class PostsController extends Controller {
 	 *
 	 * @return string
 	 */
-	public function actionSearch($query) {
-
-		$query = Html::encode($query);
-
-		return $this->render('search', [
-			'postsWidget' => $this->blogFrontModule->getSearchPostsWidget($query),
-		]);
-	}
+//	public function actionSearch($query) {
+//
+//		$query = Html::encode($query);
+//
+//		return $this->render('search', [
+//			'postsWidget' => $this->blogFrontModule->getSearchPostsWidget($query),
+//		]);
+//	}
 
 	/**
 	 * Вывод всех тегов

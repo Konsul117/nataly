@@ -22,6 +22,12 @@ class BlogCategory extends ActiveRecord {
 	const ATTR_META_DESCRIPTION = 'meta_description';
 	const SCENARIO_ADMIN = 'admin';
 
+	const CATEGORY_NEWS_ID   = 1;
+	const CATEGORY_DRAFTS_ID = 2;
+
+    const CATEGORY_NEWS_URL   = 'news';
+    const CATEGORY_DRAFTS_URL = 'drafts';
+
 	public function attributeLabels() {
 		return [
 			static::ATTR_ID               => '№',

@@ -4,6 +4,7 @@ namespace backend\modules\editor\components;
 
 use common\components\UploadedFileParams;
 use common\exceptions\ImageException;
+use common\modules\image\models\Image;
 use PHPImageWorkshop\ImageWorkshop;
 use Yii;
 use yii\base\Component;
@@ -22,6 +23,63 @@ class ImageUploader extends Component {
 	 * @var int
 	 */
 	public $maxOriginalHeight;
+
+    /**
+     * Загрузка изображения
+     *
+     * @param int                $entityId
+     * @param int                $entityItemId
+     * @param UploadedFileParams $uploadParams
+     *
+     * @throws Exception
+     * @throws ImageException
+     * @throws \PHPImageWorkshop\Core\Exception\ImageWorkshopLayerException
+     * @throws \PHPImageWorkshop\Exception\ImageWorkshopException
+     */
+	public function uploadWithModel(int $entityId, int $entityItemId, UploadedFileParams $uploadParams): void {
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $image = $this->saveImageModel($entityId, $entityItemId);
+            $this->uploadImage($image->id, $uploadParams);
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+
+        $transaction->commit();
+    }
+
+    /**
+     * @param int $entityId
+     * @param int $entityItemId
+     *
+     * @throws Exception
+     * @throws ImageException
+     * @throws \PHPImageWorkshop\Core\Exception\ImageWorkshopLayerException
+     * @throws \PHPImageWorkshop\Exception\ImageWorkshopException
+     */
+    private function saveImageModel(int $entityId, int $entityItemId): Image {
+        /** @var Image $existsImage */
+        $existsImage = Image::find()->where([
+            Image::ATTR_RELATED_ENTITY_ID      => $entityId,
+            Image::ATTR_RELATED_ENTITY_ITEM_ID => $entityItemId,
+        ])->one();
+
+        if ($existsImage !== null) {
+            return $existsImage;
+        }
+
+        $image = new Image();
+        $image->related_entity_id = $entityId;
+        $image->related_entity_item_id = $entityItemId;
+        $image->is_need_watermark = false;
+
+        if ($image->save() === false) {
+            throw new ImageException('Ошибка сохранения изображения');
+        }
+
+        return $image;
+    }
 
 	/**
 	 * Загрузка изображения
@@ -76,5 +134,12 @@ class ImageUploader extends Component {
 		return $path;
 	}
 
+    public function delete(int $id) {
+        $savePath = $this->getSavePath();
+        $path = $savePath . DIRECTORY_SEPARATOR . $id . '.jpg';
 
+        if (file_exists($path)) {
+            unlink($path);
+        }
+    }
 }

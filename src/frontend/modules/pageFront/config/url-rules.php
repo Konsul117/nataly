@@ -11,5 +11,10 @@ return [
             'route'   => 'pageFront/page/view',
             'suffix'  => '/',
         ],
+        [
+            'pattern' => 'search',
+            'route'   => 'pageFront/page/search',
+            'suffix'  => '/',
+        ],
 	],
 ];

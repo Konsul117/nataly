@@ -1,43 +1,104 @@
-* {
-	margin: 0;
-	padding: 0;
-	font-family: "Courier New";
-	font-size: 20px;
+@font-face {
+	font-family: Gotham;
+	src:         url("Gotham-XLightItalic.ttf");
+}
+
+body, h1, h2, p, ul, ul li {
+	margin:      0;
+	padding:     0;
+	font-size:   20px;
+	font-weight: normal;
+}
+
+h1, h2, p, ul, ul li, p {
+	font-family: Gotham;
+}
+
+a, a:active, a:hover, a:visited {
+	color:           black;
+	text-decoration: none;
 }
 
 body {
-	width: 100%;
-	background: url("images/bg.png") repeat;
+	width:       100%;
+	background:  url("images/bg.png") repeat;
+	font-family: "Courier New";
 }
 
 header {
-	background: #294741;
-	margin-top: 30px;
-	width: 100%;
+	width:      100%;
 	text-align: center;
 }
 
 nav {
-	height: 100%;
+	background: #294741;
+	height:     100%;
 }
 
 nav .menu-group {
+	display:        inline-block;
+	padding:        17px 0;
+	vertical-align: middle;
+}
+
+nav.is-search .socials {
+	display: none;
+}
+
+nav .search-panel .search-field {
+	display:       none;
+	width:         180px;
+	padding-right: 30px;
+}
+
+nav.is-search .search-field {
 	display: inline-block;
-	padding: 17px 0;
+}
+
+nav.is-search .search-field input {
+	width: 100%;
+	font-size: 20px;
+	float: left;
+}
+
+nav.is-search .search-field button {
+	float: left;
+	clear: left;
+	height: 30px;
+	margin-top: 10px;
+}
+
+nav ul.search {
+	margin-left: 30px;
+}
+
+nav ul.search li a {
+	display: inline-block;
+}
+
+nav ul.search li .search-field,
+nav ul.search li a {
+	vertical-align: middle;
+}
+
+nav ul.search li.search a {
+	background: url('images/search.png');
+	width:      59px;
+	height:     59px;
 }
 
 nav ul {
-	height: 100%;
-	display: flex;
-	flex-direction: row;
+	height:          100%;
+	display:         flex;
+	flex-direction:  row;
 	justify-content: center;
-	align-items: center;
+	align-items:     center;
 }
 
 nav ul li {
 	background-repeat: no-repeat;
-	background-size: cover;
-	list-style: none;
+	background-size:   cover;
+	list-style:        none;
 }
 
 nav ul li {
@@ -46,92 +107,97 @@ nav ul li {
 
 nav ul li a {
 	display: block;
-	height: 100%;
-	width: 100%;
+	height:  100%;
+	width:   100%;
 }
 
-nav ul li.nataly {
-	background: url('images/nataly.png');
-	width: 228px;
-	height: 56px;
+nav ul.menu li {
+	background: url('images/sprite.png') no-repeat;
+	height:     69px;
 }
 
-nav ul li.books {
-	background: url('images/books.png');
-	width: 98px;
-	height: 31px;
-	margin-top: 9px;
+nav ul.menu li.selected {
+	background-position-y: -69px;
 }
 
-nav ul li.news {
-	background: url('images/news.png');
-	width: 124px;
-	height: 38px;
-	margin-top: 3px;
+nav ul.menu li.nataly {
+	background-position-x: 0;
+	width:                 206px;
 }
 
-nav ul li.photostories {
-	background: url('images/photostories.png');
-	width: 178px;
-	height: 48px;
-	margin-top: 15px;
+nav ul.menu li.books {
+	background-position-x: -235px;
+	width:                 140px;
 }
 
-nav ul li.drafts {
-	background: url('images/drafts.png');
-	width: 150px;
-	height: 49px;
-	margin-top: 15px;
+nav ul.menu li.news {
+	background-position-x: -405px;
+	width:                 176px;
+}
+
+nav ul.menu li.drafts {
+	background-position-x: -617px;
+	width:                 212px;
 }
 
 nav ul.socials {
 	margin-left: 30px;
 }
 
+nav ul.socials li {
+	margin: 0 10px 0 0;
+}
+
 nav ul.socials li.social-inst {
-	background: url('images/social-inst.png');
-	width: 59px;
-	height: 59px;
+	background: url('images/social-inst.png') no-repeat;
+	width:      50px;
+	height:     50px;
 }
 
 nav ul.socials li.social-mail {
-	background: url('images/social-mail.png');
-	width: 83px;
-	height: 59px;
+	background: url('images/social-mail.png') no-repeat;
+	width:      50px;
+	height:     50px;
 }
 
 nav ul.socials li.social-vk {
-	background: url('images/social-vk.png');
-	width: 59px;
-	height: 59px;
+	background: url('images/social-vk.png') no-repeat;
+	width:      50px;
+	height:     50px;
 }
 
-nav ul.search {
-	margin-left: 30px;
+header .head-right-wrap {
+	display:         flex;
+	justify-content: flex-end;
+	max-width:       1200px;
+	min-width:       600px;
+	margin:          10px auto;
 }
 
-nav ul.search li.search {
-	background: url('images/search.png');
-	width: 59px;
-	height: 59px;
+header .head-right-wrap .head-right {
+	background: url('images/header.png') no-repeat;
+	width:      500px;
+	height:     68px;
 }
 
 section {
 	max-width: 1200px;
 	min-width: 600px;
-	margin: 20px auto;
+	margin:    20px auto;
 }
 
 section .block-left {
-	float: left;
+	float:        left;
 	margin-right: 1em;
 }
 
 footer {
-	clear: both;
-	padding: 1em;
+	clear:      both;
+	padding:    1em;
 	text-align: center;
-	font-size: 24pt;
+	font-size:  24pt;
+	background: #294741;
+	color:      #FFF;
 }
 
 .image-block img {
@@ -139,9 +205,10 @@ footer {
 }
 
 .image-block.format-left {
-	float: left;
-	clear: left;
-	margin-right: 1em;
+	float:         left;
+	clear:         left;
+	margin-right:  1em;
+	margin-bottom: 1em;
 }
 
 .image-block.format-left .img-wrap img {
@@ -150,12 +217,95 @@ footer {
 }
 
 .image-block.format-right {
-	float: right;
-	clear: right;
+	float:       right;
+	clear:       right;
 	margin-left: 1em;
 }
 
 .image-block.format-right .img-wrap img {
 	float: right;
 	clear: right;
+}
+
+.delimiter {
+	width:               100%;
+	height:              44px;
+	background-repeat:   no-repeat;
+	background-size:     cover;
+	background-position: center;
+	margin:              1em 0;
+}
+
+.delimiter.books {
+	background-image: url("images/delimiter_books.png");
+}
+
+.delimiter.news {
+	background-image: url("images/delimiter_news.png");
+}
+
+.delimiter.drafts {
+	background-image: url("images/delimiter_drafts.png");
+	height:           64px;
+}
+
+.post-item {
+	margin-bottom: 1em;
+}
+
+.post-item h1,
+.post-item h2,
+.post-item a,
+.post-item .post-stamp,
+.blog-post-content h1,
+.blog-post-content h2,
+.blog-post-content a,
+.blog-post-content .post-stamp {
+	text-decoration: underline;
+}
+
+.post-item h1,
+.blog-post-content h1,
+.post-item h2,
+.blog-post-content h2 {
+	margin-bottom: 0.5em;
+}
+
+.post-item h1,
+.blog-post-content h1 {
+	font-size: 30px;
+}
+
+.post-item h2,
+.blog-post-content h2 {
+	font-size: 30px;
+}
+
+.tags-post {
+	margin: 0.5em 0;
+}
+
+.books {
+	display:         flex;
+	flex-wrap:       wrap;
+	align-items:     center;
+	justify-content: center;
+}
+
+.books .book-item {
+	flex:       1 1 30%;
+	text-align: center;
+}
+
+.breadcrumbs {
+	margin-bottom: 1em;
+	font-size:     18px;
+}
+
+.pagination-wrap ul.pagination {
+	list-style-type: none;
+}
+
+.pagination-wrap ul.pagination li {
+	display: inline-block;
 }

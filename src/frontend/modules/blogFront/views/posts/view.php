@@ -36,6 +36,8 @@ $formatter = new Formatter();
 		<?= $formatter->asLocalDateTime($post->insert_stamp, 'd.m.Y H:i') ?>
 	</div>
 
+	<h1><?= $post->title ?></h1>
+
 	<?= PostOutHelper::wrapContentImages($post->content, ImageProvider::FORMAT_MEDIUM, $post->title) ?>
 </div>
 

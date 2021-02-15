@@ -46,6 +46,10 @@ class BlogPostTag extends ActiveRecord {
 		//теперь разбиваем строку по пробелам на массив
 		$newTagsArr = explode(' ', $newTagsStr);
 
+        $newTagsArr = array_filter($newTagsArr, function (string $item) {
+            return !empty($item);
+        });
+
 		//ищем существующие теги в бд
 		/** @var BlogTag[] $newTagsModels */
 		$newTagsModels = BlogTag::find()

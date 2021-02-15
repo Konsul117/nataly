@@ -41,9 +41,8 @@ AppAsset::register($this);
 				'options' => ['class' => 'navbar-nav navbar-left'],
 				'items'   => [
                         ['label' => 'Страницы', 'url' => ['/pageBackend/page/index']],
-						['label' => 'Книги', 'url' => ['/blog/blog/category/?category_url=books']],
+						['label' => 'Книги', 'url' => ['/book/book/index']],
 						['label' => 'Новости', 'url' => ['/blog/blog/category/?category_url=news']],
-						['label' => 'Фотоистории', 'url' => ['/blog/blog/category/?category_url=photostories']],
 						['label' => 'Черновики', 'url' => ['/blog/blog/category/?category_url=drafts']],
 						['label' => 'Настройки', 'items' => [
 								['label' => 'Водяной знак', 'url' => ['/image/settings/watermark']],

@@ -6,26 +6,25 @@ use common\modules\blog\Blog;
 use common\modules\blog\models\BlogCategory;
 use common\modules\blog\models\BlogPost;
 use common\modules\blog\models\BlogPostTag;
-use frontend\modules\blogFront\widgets\ImagePostsWidget;
 use frontend\modules\blogFront\widgets\PostsWidget;
 use frontend\modules\blogFront\widgets\SearchWidget;
 use frontend\modules\blogFront\widgets\TagsCloudWidget;
-use yii\base\InvalidParamException;
 
 /**
  * Расширение модуля "Блог" для фронтэнда
  */
 class BlogFront extends Blog {
 
-	/**
-	 * Получение виджета списка постов
-	 *
-	 * @param int    $limit
-	 * @param string $categoryUrl
-	 * @return PostsWidget
-	 * @throws InvalidParamException
-	 */
-	public function getPostsWidget($limit = null, $categoryUrl = null) {
+    /**
+     * Получение виджета списка постов
+     *
+     * @param null $limit
+     * @param null $categoryUrl
+     * @param bool $showEmptyLabel
+     *
+     * @return PostsWidget
+     */
+	public function getPostsWidget($limit = null, $categoryUrl = null, bool $showEmptyLabel = true, bool $showPagination = true) {
 		$query = BlogPost::find()
 			->where([BlogPost::ATTR_IS_PUBLISHED => true])
 			->orderBy([BlogPost::ATTR_INSERT_STAMP => SORT_DESC]);
@@ -37,31 +36,39 @@ class BlogFront extends Blog {
 					[':categoryUrl' => $categoryUrl]);
 		}
 
-		return new PostsWidget([
-			'postsForPage' => $limit,
-			'query'        => $query,
-		]);
+		$params = [
+            'query'          => $query,
+            'showEmptyLabel' => $showEmptyLabel,
+            'showPagination' => $showPagination,
+        ];
+
+		if ($limit !== null) {
+		    $params['postsForPage'] = $limit;
+        }
+
+		return new PostsWidget($params);
 	}
 
-	/**
-	 * Получение виджета поиска постов
-	 *
-	 * @param string $query
-	 * @param int    $limit
-	 * @return PostsWidget
-	 * @throws InvalidParamException
-	 */
-	public function getSearchPostsWidget($query, $limit = null) {
+    /**
+     * Получение виджета поиска постов
+     *
+     * @param string $request
+     * @param int    $categoryId
+     *
+     * @return PostsWidget
+     */
+	public function getSearchPostsWidget(string $request, int $categoryId) {
 		$query = BlogPost::find()
-			->where(['like', BlogPost::tableName() . '.' . BlogPost::ATTR_TITLE, $query])
-			->orWhere(['like', BlogPost::tableName() . '.' . BlogPost::ATTR_TAGS, $query])
+            ->where([BlogPost::tableName() . '.' . BlogPost::ATTR_CATEGORY_ID => $categoryId])
+			->andWhere(['like', BlogPost::tableName() . '.' . BlogPost::ATTR_TITLE, $request])
+			->orWhere(['like', BlogPost::tableName() . '.' . BlogPost::ATTR_TAGS, $request])
 			->andWhere([BlogPost::tableName() . '.' . BlogPost::ATTR_IS_PUBLISHED => true])
 			->orderBy([BlogPost::ATTR_INSERT_STAMP => SORT_DESC]);
 
 		return new PostsWidget([
-			'postsForPage'   => $limit,
 			'query'          => $query,
 			'showTotalCount' => true,
+            'showPagination' => false,
 		]);
 	}
 

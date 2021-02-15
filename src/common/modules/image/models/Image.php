@@ -49,6 +49,8 @@ class Image extends ActiveRecord implements ImageProvider {
 	/** Отношение к Post */
 	const REL_POST = 'post';
 
+	private $imageThumbsCache = [];
+
 	/**
 	 * Получить закэшированную модель изображения.
 	 *
@@ -136,10 +138,14 @@ class Image extends ActiveRecord implements ImageProvider {
 			throw new ImageException('Изображение отсутствует');
 		}
 
-		/** @var \common\modules\image\Image $imageModule */
-		$imageModule = Yii::$app->getModule('image');
+		if (!array_key_exists($format, $this->imageThumbsCache)) {
+            /** @var \common\modules\image\Image $imageModule */
+            $imageModule = Yii::$app->getModule('image');
 
-		return $imageModule->imageThumbCreator->getImageThumbUrl($this->id, $format, $this->is_need_watermark);
+            $this->imageThumbsCache[$format] = $imageModule->imageThumbCreator->getImageThumbUrl($this->id, $format, $this->is_need_watermark);
+        }
+
+		return $this->imageThumbsCache[$format];
 	}
 
 	/**

@@ -8,6 +8,8 @@ use yii\helpers\Url;
 
 /** @var View $this */
 /** @var string $content */
+/** @var string $blogCategoryUrl */
+/** @var bool $isRoot */
 
 //BootstrapAsset::register($this);
 CommonAsset::register($this);
@@ -90,27 +92,27 @@ FancyBox::widget([
 <?php $this->beginBody() ?>
 
 <header>
+	<div class="head-right-wrap">
+		<div class="head-right"></div>
+	</div>
+	<?php \yii\widgets\Spaceless::begin() ?>
 	<nav>
 		<div class="menu-group">
-			<ul>
-				<li class="nataly">
+			<ul class="menu">
+				<li class="nataly <?=(isset($this->params['isRoot']) && $this->params['isRoot']) ? 'selected' : '' ?>">
 					<a href="<?= Url::to(['/']) ?>"></a>
 				</li>
-				<li class="books">
-					<a href="<?= Url::to(['/blogFront/posts/category', 'category_url' => 'books']) ?>"></a>
+				<li class="books <?=(isset($this->params['isBooks']) && $this->params['isBooks']) ? 'selected' : '' ?>">
+					<a href="<?= Url::to(['/bookFront/books/index']) ?>"></a>
 				</li>
-				<li class="news">
+				<li class="news <?=(isset($this->params['blogCategoryUrl']) && $this->params['blogCategoryUrl'] === 'news') ? 'selected' : '' ?>">
 					<a href="<?= Url::to(['/blogFront/posts/category', 'category_url' => 'news']) ?>"></a>
 				</li>
-				<li class="photostories">
-					<a href="<?= Url::to(['/blogFront/posts/category', 'category_url' => 'photostories']) ?>"></a>
-				</li>
-				<li class="drafts">
+				<li class="drafts <?=(isset($this->params['blogCategoryUrl']) && $this->params['blogCategoryUrl'] === 'drafts') ? 'selected' : '' ?>">
 					<a href="<?= Url::to(['/blogFront/posts/category', 'category_url' => 'drafts']) ?>"></a>
 				</li>
 			</ul>
 		</div>
-
 
 		<div class="menu-group">
 			<ul class="socials">
@@ -126,22 +128,30 @@ FancyBox::widget([
 			</ul>
 		</div>
 
-		<div class="menu-group">
+		<div class="menu-group search-panel">
 			<ul class="search">
 				<li class="search">
-					<a href=""></a>
+					<form action="<?= Url::to(['/pageFront/page/search']) ?>" method="get" class="search-field">
+						<input type="text" name="request" placeholder="Что ищем?"/>
+						<button type="submit">Найти</button>
+					</form>
+					<a href="" id="button-search"></a>
 				</li>
 			</ul>
 		</div>
 	</nav>
+    <?php \yii\widgets\Spaceless::end() ?>
 </header>
 
 <section>
+	<div class="breadcrumbs"><?= implode(' - ', array_map(function (\common\components\BreadcrumbItem $item) {
+		return Html::a($item->title, $item->url);
+	}, $this->breadcrumbs->getAll())) ?></div>
     <?= $content ?>
 </section>
 
 <footer>
-	Владивосток 2020
+	Владивосток <?= date('Y') ?>
 </footer>
 
 <?php $this->endBody() ?>

@@ -29,7 +29,6 @@ class View extends \yii\web\View {
 		parent::init();
 
 		$this->breadcrumbs = new BreadcrumbCollection();
-		$this->breadcrumbs->addBreadcrumb(['/'], 'Главная');
 
 		$this->metaTagContainer = new MetaTagContainer();
 	}

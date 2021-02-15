@@ -24,6 +24,9 @@ class Entity extends ActiveRecord {
 	/** Сущность - страница */
 	const ENTITY_PAGE_ID = 2;
 
+    /** Сущность - книга */
+	const ENTITY_BOOK_ID = 3;
+
 	/**
 	 * Получить модель сущности, на которую указывают данные справочника
 	 *

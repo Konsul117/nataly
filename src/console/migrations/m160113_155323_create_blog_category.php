@@ -15,10 +15,8 @@ class m160113_155323_create_blog_category extends Migration {
 		], ' COMMENT "Категории блога"');
 
 		$this->batchInsert($this->tableName, ['id', 'title', 'title_url'], [
-			[1, 'Книги', 'books'],
-			[2, 'Новости', 'news'],
-			[3, 'Фотоистории', 'photostories'],
-			[4, 'Черновики', 'drafts'],
+			[1, 'Новости', 'news'],
+			[2, 'Черновики', 'drafts'],
 		]);
 	}
 
