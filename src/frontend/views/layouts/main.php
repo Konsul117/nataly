@@ -85,10 +85,6 @@ FancyBox::widget([
 </head>
 <body>
 
-<?php if (!defined('YII_DEBUG') || !YII_DEBUG): ?>
-	<?= $this->render('//layouts/blocks/counters') ?>
-<?php endif ?>
-
 <?php $this->beginBody() ?>
 
 <header>
